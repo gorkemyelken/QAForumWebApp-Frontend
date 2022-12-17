@@ -10,8 +10,8 @@ function App() {
       <BrowserRouter>
       <NavBar></NavBar>
         <Routes>
-          <Route exact path="/" element={Home}></Route>
-          <Route exact path="/users/:userId" element={User}></Route>
+          <Route exact path="/" element={<Home/>}></Route>
+          <Route exact path="/users/:userId" element={<User/>}></Route>
         </Routes>
       </BrowserRouter>
     </div>
