@@ -1,9 +1,8 @@
 .container{
-    display: flex;
+    padding: 5px 15% ;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    background-color: white;
-    margin-top: 10px;
+    background-color: rgb(224,224,224);
     height: max-content;
 }

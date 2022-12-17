@@ -13,7 +13,7 @@ import MenuItem from "@mui/material/MenuItem";
 function Navbar() {
   let userId = 5;
   return (
-    <AppBar position="static" color="transparent">
+    <AppBar position="static" className="appbar">
       <Toolbar>
         <IconButton
           size="large"
