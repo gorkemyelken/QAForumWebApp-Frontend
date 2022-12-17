@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { styled } from "@mui/material/styles";
 import Card from "@mui/material/Card";
@@ -27,39 +27,40 @@ const ExpandMore = styled((props) => {
 function Post(props) {
   const { title, text, userId, userName } = props;
   const [expanded, setExpanded] = React.useState(false);
-  const [liked, setLiked] = useState(false)
+  const [liked, setLiked] = useState(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
-  const handleLike= ()=> {
+  const handleLike = () => {
     setLiked(!liked);
-  }
+  };
 
   return (
     <div className="postContainer">
       <Card sx={{ Width: 800 }}>
-        <CardHeader
-          avatar={
-            <Link className="userLink" to={{ pathname: "/users/" + userId }}>
-            <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-              {userName.charAt(0).toUpperCase()}
-            </Avatar>
-            </Link>
-          }
-          title={title}
-        />
+        
+
         <CardContent>
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="h4" color="ActiveBorder" className="title">
+            {title}
+          </Typography>
+          <Typography variant="h6" color="ActiveBorder" className="text">
             {text}
           </Typography>
+          <Typography variant="body1" className="userName">
+            {userName}
+          </Typography>
+          <Link className="userLink" to={{ pathname: "/users/" + userId }}>
+          <Avatar className="avatar" sx={{ bgcolor: "teal" }}>
+            {userName.charAt(0).toUpperCase()}
+          </Avatar>
+        </Link>
         </CardContent>
         <CardActions disableSpacing>
-          <IconButton
-          onClick={handleLike}
-          aria-label="add to favorites">
-            <FavoriteIcon style={liked?{color:"red"}: null}/>
+          <IconButton onClick={handleLike} aria-label="add to favorites">
+            <FavoriteIcon style={liked ? { color: "red" } : null} />
           </IconButton>
 
           <ExpandMore
