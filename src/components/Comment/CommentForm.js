@@ -56,7 +56,7 @@ function CommentForm(props) {
             <InputAdornment position = "end">
             <Button
                 variant = "contained"
-                style = {{background: 'linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)',
+                style = {{background: 'green',
                 color: 'white'}}
                 onClick = {handleSubmit}
             >Comment</Button>

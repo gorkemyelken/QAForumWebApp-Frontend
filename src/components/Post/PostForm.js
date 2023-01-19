@@ -1,26 +1,19 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { styled } from "@mui/material/styles";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
-import InsertCommentIcon from "@mui/icons-material/InsertComment";
 import CardContent from "@mui/material/CardContent";
-import CardActions from "@mui/material/CardActions";
-import Collapse from "@mui/material/Collapse";
 import Avatar from "@mui/material/Avatar";
-import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import FavoriteIcon from "@mui/icons-material/Favorite";
 import "./Post.scss";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import { Button, InputAdornment } from "@mui/material";
-import Snackbar from '@mui/material/Snackbar';
-import MuiAlert from '@mui/material/Alert';
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from "@mui/material/Alert";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
-    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-  });
-
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 function PostForm(props) {
   const { userId, userName, refreshPosts } = props;
@@ -63,7 +56,7 @@ function PostForm(props) {
   };
 
   const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
+    if (reason === "clickaway") {
       return;
     }
 
