@@ -36,6 +36,8 @@ function Post(props) {
   const isInitialMount = useRef(true);
   const [likeCount, setLikeCount] = useState(likes.length);
   const [likeId, setLikeId] = useState(null);
+  let disabled = localStorage.getItem("currentUser") == null ? true : false;
+
   const handleExpandClick = () => {
     setExpanded(!expanded);
     refreshComments();
@@ -74,10 +76,11 @@ function Post(props) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "Authorization": localStorage.getItem("tokenKey")
       },
       body: JSON.stringify({
         postId: postId,
-        userId: userId,
+        userId: localStorage.getItem("currentUser"),
       }),
     })
       .then((res) => res.json())
@@ -86,12 +89,14 @@ function Post(props) {
 
   const deleteLike = () => {
     fetch("/likes/" + likeId, {
-      method: "DELETE",
+      method: "DELETE",headers: {
+        "Authorization": localStorage.getItem("tokenKey")
+      }
     }).catch((err) => console.log(err));
   };
 
   const checkLikes = () => {
-    var likeControl = likes.find((like) => like.userId === userId);
+    var likeControl = likes.find((like) => ""+like.userId === localStorage.getItem("currentUser"));
     if (likeControl != null) {
       setLikeId(likeControl.id);
       setIsLiked(true);
@@ -127,9 +132,21 @@ function Post(props) {
           </Link>
         </CardContent>
         <CardActions disableSpacing>
-          <IconButton onClick={handleLike} aria-label="add to favorites">
-            <FavoriteIcon style={isLiked ? { color: "red" } : null} />
-          </IconButton>
+                  {disabled ?                    
+                  <IconButton 
+                    disabled
+                    onClick={handleLike}
+                    aria-label="add to favorites"
+                    >
+                    <FavoriteIcon style={isLiked? { color: "red" } : null} />
+                    </IconButton> :
+                    <IconButton 
+                    onClick={handleLike}
+                    aria-label="add to favorites"
+                    >
+            <FavoriteIcon style={isLiked? { color: "red" } : null} />
+                    </IconButton>
+                  }
           {likeCount}
           <IconButton
             onClick={handleExpandClick}
@@ -152,11 +169,15 @@ function Post(props) {
                   ></Comment>
                 ))
               : "Loading"}
-            <CommentForm
-              userId={1}
-              userName={"USER"}
-              postId={postId}
-            ></CommentForm>
+            {disabled ? (
+              ""
+            ) : (
+              <CommentForm
+                userId={1}
+                userName={"USER"}
+                postId={postId}
+              ></CommentForm>
+            )}
           </Container>
         </Collapse>
       </Card>

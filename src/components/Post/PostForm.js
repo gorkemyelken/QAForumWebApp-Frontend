@@ -26,10 +26,11 @@ function PostForm(props) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "Authorization": localStorage.getItem("tokenKey")
       },
       body: JSON.stringify({
         title: title,
-        userId: userId,
+        userId: localStorage.getItem("currentUser"),
         text: text,
       }),
     })
