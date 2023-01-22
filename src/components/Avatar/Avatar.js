@@ -12,6 +12,7 @@ import ListItem from "@mui/material/ListItem";
 import { ListItemSecondaryAction } from "@mui/material";
 import avatar from "../avatarphoto/papillon.jpg";
 import "./Avatar.scss";
+import { PutWithAuth } from "../../services/HttpService";
 
 function Avatar(props) {
   const { avatarId } = props;
@@ -19,15 +20,8 @@ function Avatar(props) {
   const [selectedValue, setSelectedValue] = useState(avatarId);
 
   const saveAvatar = () => {
-    fetch("/users/" + localStorage.getItem("currentUser"), {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: localStorage.getItem("tokenKey"),
-      },
-      body: JSON.stringify({
-        avatar: selectedValue,
-      }),
+    PutWithAuth("/users/" + localStorage.getItem("currentUser"),{
+      avatar: selectedValue,
     })
       .then((res) => res.json())
       .catch((err) => console.log(err));

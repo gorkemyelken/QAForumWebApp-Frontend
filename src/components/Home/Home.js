@@ -30,7 +30,7 @@ function Home() {
   useEffect(() => {
     refreshPosts()
   
-  }, [postList])
+  }, [])
   
 
   useEffect(() => {

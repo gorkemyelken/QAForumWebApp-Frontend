@@ -5,25 +5,19 @@ import InputAdornment from "@mui/material/InputAdornment";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import { Button, CardContent } from "@mui/material";
 import "./Comment.scss";
+import { PostWithAuth } from "../../services/HttpService";
 
 
 function CommentForm(props) {
-    const {userId, userName, postId} = props;
+    const {userId, userName, postId, setCommentRefresh} = props;
     const [text, setText] = useState("");
 
     const saveComment = () => {
-        fetch("/comments", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": localStorage.getItem("tokenKey")
-          },
-          body: JSON.stringify({
+        PostWithAuth("/comments",{
             postId: postId, 
             userId : userId,
             text : text,
-          }),
-        })
+          })
           .then((res) => res.json())
           .catch((err) => console.log(err))
     }
@@ -31,6 +25,7 @@ function CommentForm(props) {
     const handleSubmit = () => {
         saveComment();
         setText("");
+        setCommentRefresh();
     }
 
     const handleChange = (value) => {

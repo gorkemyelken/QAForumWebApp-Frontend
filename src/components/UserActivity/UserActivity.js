@@ -15,6 +15,7 @@ import { IconButton } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import Post from '../Post/Post';
 import "./UserActivity.scss";
+import { GetWithAuth } from '../../services/HttpService';
 
 const Transition = forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
@@ -26,13 +27,7 @@ function PopUp(props) {
     const [post, setPost] = useState();
 
     const getPost = () => {
-        fetch("/posts/"+postId, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization" : localStorage.getItem("tokenKey"),
-          },
-        })
+      GetWithAuth("/posts/"+postId)
         .then(res => res.json())
         .then(
             (result) => {
@@ -94,13 +89,7 @@ function UserActivity(props) {
     };
 
    const getActivity = () => {
-    fetch("/users/activity/"+1, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization" : localStorage.getItem("tokenKey"),
-      },
-    })
+    GetWithAuth("/users/activity/"+1)
     .then(res => res.json())
     .then(
         (result) => {

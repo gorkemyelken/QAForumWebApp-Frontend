@@ -1,5 +1,6 @@
 import {React, useState, useEffect} from "react";
 import {useParams} from "react-router-dom";
+import { GetWithAuth } from "../../services/HttpService";
 import Avatar from "../Avatar/Avatar";
 import UserActivity from "../UserActivity/UserActivity";
 import "./User.scss";
@@ -9,13 +10,7 @@ function User() {
     const [user, setUser] = useState();
 
     const getUser = () => {
-        fetch("/users/"+userId, {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              "Authorization" : localStorage.getItem("tokenKey"),
-            },
-          })
+        GetWithAuth("/users/"+userId)
           .then(res => res.json())
           .then(
               (result) => {

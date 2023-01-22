@@ -15,6 +15,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import "./Post.scss";
 import CommentForm from "../Comment/CommentForm";
 import Comment from "../Comment/Comment";
+import { DeleteWithAuth, PostWithAuth } from "../../services/HttpService";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -36,7 +37,13 @@ function Post(props) {
   const isInitialMount = useRef(true);
   const [likeCount, setLikeCount] = useState(likes.length);
   const [likeId, setLikeId] = useState(null);
+  const [refresh,setRefresh] = useState(false);
   let disabled = localStorage.getItem("currentUser") == null ? true : false;
+
+
+  const setCommentRefresh = () => {
+    setRefresh(true)
+  }
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -69,30 +76,21 @@ function Post(props) {
           setError(error);
         }
       );
+      setRefresh(false)
   };
 
   const saveLike = () => {
-    fetch("/likes", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": localStorage.getItem("tokenKey")
-      },
-      body: JSON.stringify({
-        postId: postId,
-        userId: localStorage.getItem("currentUser"),
-      }),
+    PostWithAuth("/likes",{
+      postId: postId,
+      userId: localStorage.getItem("currentUser"),
     })
       .then((res) => res.json())
       .catch((err) => console.log(err));
   };
 
   const deleteLike = () => {
-    fetch("/likes/" + likeId, {
-      method: "DELETE",headers: {
-        "Authorization": localStorage.getItem("tokenKey")
-      }
-    }).catch((err) => console.log(err));
+    DeleteWithAuth("/likes/" + likeId)
+    .catch((err) => console.log(err));
   };
 
   const checkLikes = () => {
@@ -106,7 +104,7 @@ function Post(props) {
   useEffect(() => {
     if (isInitialMount.current) isInitialMount.current = false;
     else refreshComments();
-  }, [commentList]);
+  }, [refresh]);
 
   useEffect(() => {
     checkLikes();
@@ -176,6 +174,7 @@ function Post(props) {
                 userId={1}
                 userName={"USER"}
                 postId={postId}
+                setCommentRefresh={setCommentRefresh}
               ></CommentForm>
             )}
           </Container>

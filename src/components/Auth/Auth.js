@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { FormControl, Input, InputLabel, FormHelperText } from "@mui/material";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
+import { PostWithAuth } from "../../services/HttpService";
 
 function Auth() {
   const [username, setUsername] = useState("");
@@ -16,16 +17,11 @@ function Auth() {
   };
 
   const sendRequest = (path) => {
-    fetch("/auth/" + path, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
+    PostWithAuth("/auth/" + path,{
         userName: username,
         password: password,
-      }),
-    })
+      })
+
       .then((res) => res.json())
       .then((result) => {
         localStorage.setItem("tokenKey", result.message);
