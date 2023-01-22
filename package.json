@@ -41,6 +41,7 @@
     ]
   },
   "proxy": "http://localhost:8080",
+  "now-build": "react-scripts build && mv build dist",
   "devDependencies": {
     "sass": "^1.57.0"
   }
