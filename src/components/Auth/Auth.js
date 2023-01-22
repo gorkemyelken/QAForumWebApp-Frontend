@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FormControl, Input, InputLabel, FormHelperText } from "@mui/material";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
-import { PostWithAuth } from "../../services/HttpService";
+import {  PostWithoutAuth } from "../../services/HttpService";
 
 function Auth() {
   const [username, setUsername] = useState("");
@@ -17,7 +17,7 @@ function Auth() {
   };
 
   const sendRequest = (path) => {
-    PostWithAuth("/auth/" + path,{
+    PostWithoutAuth("/auth/" + path,{
         userName: username,
         password: password,
       })
