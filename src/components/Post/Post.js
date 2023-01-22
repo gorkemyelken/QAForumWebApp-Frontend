@@ -125,7 +125,7 @@ function Post(props) {
           </Typography>
           <Link className="userLink" to={{ pathname: "/users/" + userId }}>
             <Avatar className="avatar" sx={{ bgcolor: "green" }}>
-              {userName.charAt(0).toUpperCase()}
+              {userName?.charAt(0).toUpperCase()}
             </Avatar>
           </Link>
         </CardContent>
