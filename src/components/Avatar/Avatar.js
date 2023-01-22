@@ -15,7 +15,7 @@ import "./Avatar.scss";
 import { PutWithAuth } from "../../services/HttpService";
 
 function Avatar(props) {
-  const { avatarId } = props;
+  const { avatarId, userId, userName } = props;
   const [open, setOpen] = useState(false);
   const [selectedValue, setSelectedValue] = useState(avatarId);
 
@@ -51,16 +51,16 @@ function Avatar(props) {
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
-            UserName
+            {userName}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
             User info
           </Typography>
         </CardContent>
         <CardActions>
-          <Button size="small" color="primary" onClick={handleOpen}>
-            Change Avatar
-          </Button>
+        {localStorage.getItem("currentUser") == userId ? <Button size="small" color="primary"  onClick={handleOpen}>
+          Change Avatar
+        </Button> : ""}
         </CardActions>
       </Card>
       <Modal

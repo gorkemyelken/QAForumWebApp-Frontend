@@ -161,8 +161,8 @@ function Post(props) {
               : isLoaded
               ? commentList.map((comment) => (
                   <Comment
-                    userId={1}
-                    userName={"USER"}
+                  userId = {comment.userId} 
+                  userName = {comment.userName}
                     text={comment.text}
                   ></Comment>
                 ))
@@ -171,8 +171,8 @@ function Post(props) {
               ""
             ) : (
               <CommentForm
-                userId={1}
-                userName={"USER"}
+                userId = {localStorage.getItem("currentUser")} 
+                userName = {localStorage.getItem("userName")} 
                 postId={postId}
                 setCommentRefresh={setCommentRefresh}
               ></CommentForm>
