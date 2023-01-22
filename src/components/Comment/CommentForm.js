@@ -4,6 +4,7 @@ import Avatar from "@mui/material/Avatar";
 import InputAdornment from "@mui/material/InputAdornment";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import { Button, CardContent } from "@mui/material";
+import "./Comment.scss";
 
 
 function CommentForm(props) {
@@ -45,7 +46,7 @@ function CommentForm(props) {
         onChange = {(i) => handleChange(i.target.value)}   
         startAdornment = {
             <InputAdornment position="start">
-                <Link to={{pathname : '/users/' + userId}}>
+                <Link className="userLink" to={{pathname : '/users/' + userId}}>
                     <Avatar aria-label="recipe" >
                         {userName.charAt(0).toUpperCase()}
                     </Avatar>
