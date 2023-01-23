@@ -105,7 +105,7 @@ function UserActivity(props) {
   };
 
   const getActivity = () => {
-    GetWithAuth("/users/activity/" + 1)
+    GetWithAuth("/users/activity/" + 7)
       .then((res) => res.json())
       .then(
         (result) => {
