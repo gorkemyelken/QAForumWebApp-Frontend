@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Card from "@mui/material/Card";
-import CardHeader from "@mui/material/CardHeader";
 import CardContent from "@mui/material/CardContent";
 import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
@@ -23,7 +22,7 @@ function PostForm(props) {
   const [isSent, setIsSent] = useState(false);
 
   const savePost = () => {
-    PostWithAuth("/posts",{
+    PostWithAuth("/posts", {
       title: title,
       userId: localStorage.getItem("currentUser"),
       text: text,

@@ -20,7 +20,7 @@ function Avatar(props) {
   const [selectedValue, setSelectedValue] = useState(avatarId);
 
   const saveAvatar = () => {
-    PutWithAuth("/users/" + localStorage.getItem("currentUser"),{
+    PutWithAuth("/users/" + localStorage.getItem("currentUser"), {
       avatar: selectedValue,
     })
       .then((res) => res.json())
@@ -58,9 +58,9 @@ function Avatar(props) {
           </Typography>
         </CardContent>
         <CardActions>
-        {localStorage.getItem("currentUser") == userId ? <Button size="small" color="primary"  onClick={handleOpen}>
-          Change Avatar
-        </Button> : ""}
+          <Button size="small" color="primary" onClick={handleOpen}>
+            Change Avatar
+          </Button>
         </CardActions>
       </Card>
       <Modal

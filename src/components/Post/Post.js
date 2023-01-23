@@ -10,7 +10,6 @@ import Collapse from "@mui/material/Collapse";
 import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import { red } from "@mui/material/colors";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import "./Post.scss";
 import CommentForm from "../Comment/CommentForm";
@@ -37,13 +36,12 @@ function Post(props) {
   const isInitialMount = useRef(true);
   const [likeCount, setLikeCount] = useState(likes.length);
   const [likeId, setLikeId] = useState(null);
-  const [refresh,setRefresh] = useState(false);
+  const [refresh, setRefresh] = useState(false);
   let disabled = localStorage.getItem("currentUser") == null ? true : false;
 
-
   const setCommentRefresh = () => {
-    setRefresh(true)
-  }
+    setRefresh(true);
+  };
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -76,11 +74,11 @@ function Post(props) {
           setError(error);
         }
       );
-      setRefresh(false)
+    setRefresh(false);
   };
 
   const saveLike = () => {
-    PostWithAuth("/likes",{
+    PostWithAuth("/likes", {
       postId: postId,
       userId: localStorage.getItem("currentUser"),
     })
@@ -89,12 +87,13 @@ function Post(props) {
   };
 
   const deleteLike = () => {
-    DeleteWithAuth("/likes/" + likeId)
-    .catch((err) => console.log(err));
+    DeleteWithAuth("/likes/" + likeId).catch((err) => console.log(err));
   };
 
   const checkLikes = () => {
-    var likeControl = likes.find((like) => ""+like.userId === localStorage.getItem("currentUser"));
+    var likeControl = likes.find(
+      (like) => "" + like.userId === localStorage.getItem("currentUser")
+    );
     if (likeControl != null) {
       setLikeId(likeControl.id);
       setIsLiked(true);
@@ -130,21 +129,19 @@ function Post(props) {
           </Link>
         </CardContent>
         <CardActions disableSpacing>
-                  {disabled ?                    
-                  <IconButton 
-                    disabled
-                    onClick={handleLike}
-                    aria-label="add to favorites"
-                    >
-                    <FavoriteIcon style={isLiked? { color: "red" } : null} />
-                    </IconButton> :
-                    <IconButton 
-                    onClick={handleLike}
-                    aria-label="add to favorites"
-                    >
-            <FavoriteIcon style={isLiked? { color: "red" } : null} />
-                    </IconButton>
-                  }
+          {disabled ? (
+            <IconButton
+              disabled
+              onClick={handleLike}
+              aria-label="add to favorites"
+            >
+              <FavoriteIcon style={isLiked ? { color: "red" } : null} />
+            </IconButton>
+          ) : (
+            <IconButton onClick={handleLike} aria-label="add to favorites">
+              <FavoriteIcon style={isLiked ? { color: "red" } : null} />
+            </IconButton>
+          )}
           {likeCount}
           <IconButton
             onClick={handleExpandClick}
@@ -161,8 +158,8 @@ function Post(props) {
               : isLoaded
               ? commentList.map((comment) => (
                   <Comment
-                  userId = {comment.userId} 
-                  userName = {comment.userName}
+                    userId={comment.userId}
+                    userName={comment.userName}
                     text={comment.text}
                   ></Comment>
                 ))
@@ -171,8 +168,8 @@ function Post(props) {
               ""
             ) : (
               <CommentForm
-                userId = {localStorage.getItem("currentUser")} 
-                userName = {localStorage.getItem("userName")} 
+                userId={localStorage.getItem("currentUser")}
+                userName={localStorage.getItem("userName")}
                 postId={postId}
                 setCommentRefresh={setCommentRefresh}
               ></CommentForm>
